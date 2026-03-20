@@ -16,7 +16,7 @@ export function createWelcomeEmailTemplate(name, clientURL) {
       <div style="background:linear-gradient(to right, #36D1DC, #5B86E5); padding:30px; text-align:center;">
         <img src="https://cdn-icons-png.flaticon.com/512/2950/2950654.png"
              style="width:80px; height:80px; border-radius:50%; background:white; padding:10px;" />
-        <h1 style="color:white; margin-top:15px;">Welcome to Messenger 🚀</h1>
+        <h1 style="color:white; margin-top:15px;">Welcome to Chatify 🚀</h1>
       </div>
 
       <!-- Body -->

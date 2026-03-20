@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './lib/db.js';
 import path from 'path';
+import cookieParser from 'cookie-parser'
 dotenv.config();
 
 import authRoutes from './routes/auth.route.js';
@@ -12,6 +13,7 @@ const __dirname = path.resolve();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
