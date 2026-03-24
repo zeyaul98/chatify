@@ -3,6 +3,7 @@ import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv';
 import { sendWelcomeEmail } from '../email/emailHandler.js';
+import cloudinary from '../lib/cloudinary.js';
 dotenv.config();
 
 export const signup = async (req, res) => {
@@ -97,5 +98,18 @@ export const logout = async (_,res) => {
 
 
 export const updateProfile = async (req,res) => {
-     
+     try {
+        const profilePic = req.body;
+        if(!profilePic) return res.status(400).json({message:"Profile picture is required"})
+
+            const user = req.user._id;
+
+            const uploadResponse = await cloudinary.uploader.upload(profilePic)
+            const updatedUser = await User.findByIdAndUpdate(user, {profilePic : uploadResponse.secure_url},{new:true})
+
+            res.status(200).json({message:"Profile picture updated successfully", updatedUser}) 
+     } catch (error) {
+        console.error("Error updating profile picture:", error);
+        res.status(500).json({message:"Error updating profile picture"})
+     }
 }
