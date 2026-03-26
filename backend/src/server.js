@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/message", messageRoutes); 
 
 
 
@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
 
 app.get('/api', (req, res) => {
     res.json({ message: 'Hello from the API!' });
+    console.log('API endpoint was hit');
 });
 
 app.listen(PORT, () => {
