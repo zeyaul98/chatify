@@ -41,6 +41,15 @@ export const sendMessage = async (req,res)=>{
         const {id:receiverId} = req.params;
         const senderId = req.user._id;
 
+        if(!text && !image){
+            return res.status(400).json({message:'text or image are required'})
+        }
+
+        const receiverExists = await User.exists({_id:receiverId});
+        if(!receiverExists){
+            return res.status(400).json({message:'receiver does not exist'})
+        }
+
         let imageUrl;
 
         // ✅ only upload if image exists
