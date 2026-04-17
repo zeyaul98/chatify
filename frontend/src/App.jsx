@@ -5,7 +5,7 @@ import ChatPage from "./Pages/ChatPage"
 import { useAuthStore } from "./store/useAuthStore"
 import { useEffect } from "react"
 import { Navigate } from "react-router-dom"
-import PageLoader from "./components/PageLoader.jsx"
+import Pageloader from "./Components/Pageloader"
 import {Toaster} from 'react-hot-toast'
 
 
@@ -20,7 +20,7 @@ const App = () => {
 
   console.log(authUser);
 
-  if(isCheckingAuth) return <PageLoader />
+  if(isCheckingAuth) return <Pageloader />
   
   
   return (
