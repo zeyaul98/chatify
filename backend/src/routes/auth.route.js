@@ -13,6 +13,6 @@ router.post('/logout', logout);
 
 
 //update profile pic route
-router.put('/profile-pic',protectedRoute, updateProfile);
+router.put('/update-profile',protectedRoute, updateProfile);
 router.get('/check', protectedRoute, (req,res) => res.status(200).json({message:"You are authenticated", user: req.user}))
 export default router;
