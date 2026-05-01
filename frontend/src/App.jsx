@@ -5,7 +5,7 @@ import ChatPage from "./Pages/ChatPage"
 import { useAuthStore } from "./store/useAuthStore"
 import { useEffect } from "react"
 import { Navigate } from "react-router-dom"
-import PageLoader from "./Components/PageLoader"
+import PageLoader from "./components/PageLoader"
 import {Toaster} from 'react-hot-toast'
 
 
