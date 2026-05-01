@@ -1,9 +1,12 @@
 import {useChatStore} from "../store/useChatStore"
 import { X } from "lucide-react";
 import { useEffect } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 
 const ChatHeader = () => {
   const {selectedUser, setSelectedUser} = useChatStore();
+  const { onlineUsers } = useAuthStore();
+  const isOnline = onlineUsers.includes(selectedUser._id);
     useEffect(() => {
 
         const handleEscKey = (event) => {
@@ -20,14 +23,16 @@ const ChatHeader = () => {
     <div className="flex justify-between items-center bg-slate-800/50 border-b border-slate-700/50
     max-h-[84px] px-6 flex-1">
         <div className="flex items-center space-x-3">
-            <div className="avatar avatar-online">
+            <div className={`avatar ${isOnline ? "avatar-online" : "avatar-offline"}`}>
                 <div className="size-12 rounded-full">
                     <img src={selectedUser.profilePic || '/avatar.png'} alt={selectedUser?.fullName} />
                 </div>
             </div>
                 <div>
                     <h3 className="text-slate-200 font-medium">{selectedUser.fullName}</h3>
-                    <p className="text-green-400 text-sm">{selectedUser?.status || 'Online'}</p>
+                    <p className={`text-sm ${isOnline ? 'text-green-400' : 'text-slate-400'}`}>
+                        {isOnline ? 'Online' : 'Offline'}
+                    </p>
                 </div>
         </div>
         <button
