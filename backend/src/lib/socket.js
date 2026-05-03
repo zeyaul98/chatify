@@ -7,40 +7,40 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:5173",
-        credentials: true
-    }
+  cors: {
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+  },
 });
 
 
 io.use(SocketAuthMiddleware);
 
-//we use this function to check if the user is online or not
-export function getReceiverSocketId(userId){
-    return userSocketMap[userId];
+// we will use this function to check if the user is online or not
+export function getReceiverSocketId(userId) {
+  return userSocketMap[userId];
 }
 
-
-
-//this is for storing the online user
-const userSocketMap = {};
+// this is for storig online users
+const userSocketMap = {}; // {userId:socketId}
 
 io.on("connection", (socket) => {
-    console.log("a user connected", socket.user.fullName);
+  console.log("A user connected", socket.user.fullName);
 
-    const userId = socket.user._id;
-    userSocketMap[userId] = socket.id;
+  const userId = socket.userId;
+  userSocketMap[userId] = socket.id;
 
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  // io.emit() is used to send events to all connected clients
+  io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
-    socket.on("disconnect", () => {
-    console.log("A User Disconnected", socket.user.fullName);
-
+  // with socket.on we listen for events from clients
+  socket.on("disconnect", () => {
+    console.log("A user disconnected", socket.user.fullName);
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
-});
+  });
 });
 
-export {io, server, app}
+export { io, app, server };
