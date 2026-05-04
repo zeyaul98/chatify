@@ -5,6 +5,7 @@ import User from "../models/User.js";
 import { io } from "../lib/socket.js";
 
 
+
 export const getAllContacts = async(req, res) => {
     try {
         const loggedInUserId = req.user._id;
